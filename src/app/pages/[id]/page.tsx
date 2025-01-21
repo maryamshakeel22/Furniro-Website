@@ -355,8 +355,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
         </p>
       </div>
       <div className="mt-[37px]">
-        <p className="text-gray-600 text-normal mx-auto  md:px-10 text-justify">{product.description || "Loading..."}</p>
-      </div>
+  <p className="text-gray-600 text-sm sm:text-base md:text-lg lg:text-xl mx-4 sm:mx-6 md:mx-10 text-justify sm:text-center leading-relaxed">
+    {product.description || "Loading..."}
+  </p>
+</div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-[70%] mt-[37px]">
         <div className="flex flex-col bg-primary-light rounded-lg justify-center items-center">
