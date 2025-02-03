@@ -54,7 +54,7 @@ export default function CartPage() {
       <section className="bg-[url('/bgshop.png')] bg-cover bg-center py-12 md:py-16">
         <div className="container mx-auto px-4 text-center">
           <div className="inline-block w-16 h-16 mb-4">
-            <Image src={'/logo.png'} alt='' width={77} height={77} />
+            <Image src={'/logo.png'} alt='' width={77} height={77} loading='lazy' />
           </div>
           <h1 className="text-3xl md:text-4xl font-medium mb-4">Cart</h1>
           <div className="flex items-center justify-center gap-2 text-sm">
@@ -89,6 +89,7 @@ export default function CartPage() {
                   width={108}
                   height={105}
                   className="max-w-full"
+                  loading='lazy'
                 />
                 <p className="text-[#9f9f9f]">{product.title}</p>
               </div>
@@ -168,3 +169,121 @@ export default function CartPage() {
     </>
   );
 }
+{/* remove only comments part */}
+
+// "use client";
+
+// import { FaGreaterThan } from "react-icons/fa6";
+// import Frame from "../frame";
+// import Image from "next/image";
+// import { ImBin2 } from "react-icons/im";
+// import { Button } from "@/components/ui/button";
+// import Link from "next/link";
+// import { useCart } from "./CartContext";
+
+// export default function CartPage() {
+//   const { cart, removeFromCart, updateQuantity } = useCart();
+
+//   const calculateTotal = () =>
+//     cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
+
+//   return (
+//     <>
+//       {/* Banner Section */}
+//       <section className="bg-[url('/bgshop.png')] bg-cover bg-center py-12 md:py-16">
+//         <div className="container mx-auto px-4 text-center">
+//           <Image src={"/logo.png"} alt="" width={77} height={77} loading="lazy" />
+//           <h1 className="text-3xl md:text-4xl font-medium mb-4">Cart</h1>
+//           <div className="flex items-center justify-center gap-2 text-sm">
+//             <Link href="/" className="font-bold">
+//               Home
+//             </Link>
+//             <FaGreaterThan />
+//             <span>Cart</span>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Middle Section */}
+//       <div className="w-full flex flex-col lg:flex-row gap-8 px-6 md:px-12 lg:px-24 mb-16">
+//         {/* Left Div - Cart Items */}
+//         <div className="w-full lg:w-[817px]">
+//           <div className="bg-[#f9f1e7] w-full h-14 px-4 flex items-center text-[16px] leading-[24px]">
+//             <p className="w-1/4 text-center">Product</p>
+//             <p className="w-1/4 text-center">Price</p>
+//             <p className="w-1/4 text-center">Quantity</p>
+//             <p className="w-1/4 text-center">SubTotal</p>
+//           </div>
+
+//           {cart.length > 0 ? (
+//             cart.map((product) => (
+//               <div
+//                 key={product.id}
+//                 className="mt-8 flex flex-col md:flex-row items-center md:justify-between gap-4"
+//               >
+//                 <div className="flex items-center gap-4">
+//                   <Image
+//                     src={product.image}
+//                     alt={product.title}
+//                     width={108}
+//                     height={105}
+//                     loading="lazy"
+//                   />
+//                   <p className="text-[#9f9f9f]">{product.title}</p>
+//                 </div>
+//                 <p className="text-[#9f9f9f]">{product.price.toFixed(2)}</p>
+//                 <button
+//                   onClick={() => updateQuantity(product.id, -1)}
+//                   className="bg-red-500 text-white w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-600"
+//                 >
+//                   -
+//                 </button>
+//                 <span className="text-lg font-medium">{product.quantity}</span>
+//                 <button
+//                   onClick={() => updateQuantity(product.id, 1)}
+//                   className="bg-green-500 text-white w-8 h-8 flex items-center justify-center rounded-lg hover:bg-green-600"
+//                 >
+//                   +
+//                 </button>
+//                 <p className="text-[#9f9f9f]">
+//                   Rs{(product.price * product.quantity).toFixed(2)}
+//                 </p>
+//                 <button onClick={() => removeFromCart(product.id)}>
+//                   <ImBin2 size={28} fill="#b88e2f" />
+//                 </button>
+//               </div>
+//             ))
+//           ) : (
+//             <p className="text-center mt-8">Your cart is empty</p>
+//           )}
+//         </div>
+
+//         {/* Right Div - Cart Totals */}
+//         {cart.length > 0 && (
+//           <div className="w-full lg:w-[393px]">
+//             <div className="bg-[#f9f1e7] p-4 rounded-md">
+//               <h1 className="text-[28px] text-center font-semibold mt-[15px] mb-[40px]">
+//                 Cart Totals
+//               </h1>
+//               <div className="flex justify-between w-full mb-4">
+//                 <p>Subtotal</p>
+//                 <p>Rs{calculateTotal()}</p>
+//               </div>
+//               <div className="flex justify-between w-full mb-4">
+//                 <p>Total</p>
+//                 <p className="text-[#b88e2f]">Rs{calculateTotal()}</p>
+//               </div>
+//               <Link href="/checkout">
+//                 <Button className="w-full text-[18px] bg-[#b88e2f] text-white px-6 py-4 rounded-lg hover:bg-[#9a7824]">
+//                   Check Out
+//                 </Button>
+//               </Link>
+//             </div>
+//           </div>
+//         )}
+//       </div>
+
+//       <Frame />
+//     </>
+//   );
+// }

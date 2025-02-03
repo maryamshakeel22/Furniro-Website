@@ -1,93 +1,35 @@
 'use client'
-// import Image from "next/image";
-// import Logo from "@/Pictures/Logo.png";
-// // import Link from "next/link";
-// import { MdPersonOutline } from "react-icons/md";
-// import { CiSearch } from "react-icons/ci";
-// import { GoHeart } from "react-icons/go";
-// import { AiOutlineShoppingCart } from "react-icons/ai";
-// import { useState } from "react";
-
-
-// export default function Header() {
-//   const [menuOpen, setMenuOpen] = useState(false);
-
-//   return (
-//     <>
-//       <header className="text-black body-font">
-//   <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-//     <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-//       <Image src={"/logo.png"} alt="logo" width={50} height={32}/>
-//       <span className="ml-3 text-xl">Furniro</span>
-//     </a>
-//     <nav className="hidden sm:block md:ml-auto md:mr-auto flex-wrap items-center text-base justify-center">
-//       <Link className="mr-6 hover:text-gray-900" href={"/"}>Home</Link>
-//       <Link href={"/shop"} className="mr-6 hover:text-gray-900">Shop</Link>
-//       <Link href={'/blog'} className="mr-6 hover:text-gray-900">Blog</Link>
-//       <Link href={'/contact'} className="mr-6 hover:text-gray-900">Contact</Link>
-//     </nav>
-//     <div className="font-bold flex">
-//     <MdPersonOutline width={48} height="24" className=" hover:text-gray-900 w-[48px] h-[24px]"/>
-//     <CiSearch width={48} height="24" className=" hover:text-gray-900 w-[48px] h-[24px]"/>
-//     <GoHeart width={48} height="24" className=" hover:text-gray-900 w-[48px] h-[24px]"/>
-//     <Link href={'/cart'}><AiOutlineShoppingCart width={48} height="24" className="hover:text-gray-900 w-[48px] h-[24px]"/></Link>
-//     </div>
-//   </div>
-//   <div className="sm:hidden flex items-center justify-between px-4 py-2">
-//         <button
-//           aria-label="Menu"
-//           className="p-2"
-//           onClick={() => setMenuOpen(!menuOpen)}
-//         >
-//           <span className="block w-6 h-1 bg-black mb-1 transition-transform duration-300" />
-//           <span className="block w-6 h-1 bg-black mb-1 transition-transform duration-300" />
-//           <span className="block w-6 h-1 bg-black transition-transform duration-300" />
-//         </button>
-//       </div><div
-//         className={`absolute top-[70px] left-0 w-full bg-white shadow-lg z-10 transform transition-transform duration-300 ${
-//           menuOpen ? 'translate-x-0' : '-translate-x-full'
-//         }`}
-//       >
-//         <div className="flex flex-col items-center gap-4 py-4">
-//         <Link className="mr-6 hover:text-gray-900" href={"/"}>Home</Link>
-//       <Link href={"/shop"} className="mr-6 hover:text-gray-900">Shop</Link>
-//       <Link href={'/blog'} className="mr-6 hover:text-gray-900">Blog</Link>
-//       <Link href={'/contact'} className="mr-6 hover:text-gray-900">Contact</Link>
-//         </div>
-//       </div>
-// </header>
-
-//     </>
-//   );
-// }
-
-
+{/* remove only comments part */}
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { MdPersonOutline } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import { GoHeart } from "react-icons/go";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import ProductSearch from "@/searchbar/page";
 
-
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false); // For search toggle
   const pathname = usePathname();
-  const [searchQuery, setSearchQuery] = useState('');
 
   // Helper function to check active link
   const isActive = (path: string) => pathname === path;
+
+  // Function to close both menu and search bar
+  const closeAll = () => {
+    setIsMobileMenuOpen(false);
+    setIsSearchOpen(false);
+  };
 
   return (
     <nav className="text-black body-font">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
         <div className="flex items-center">
-          <Image src="/logo.png" alt="logo" width={50} height={32} />
+          <Image src="/logo.png" alt="logo" width={50} height={32} loading="lazy" />
           <span className="ml-3 text-xl inline">Furniro</span>
         </div>
 
@@ -126,33 +68,31 @@ const Header = () => {
             Contact
           </Link>
         </div>
-        <div className="hidden md:flex items-center space-x-4">
+
         {/* Desktop Icons */}
-
-    <div className="relative">
-      <CiSearch
-        className="hover:text-gray-900 w-6 h-6 cursor-pointer"
-        onClick={() => setIsSearchOpen(!isSearchOpen)}
-      />
-      {isSearchOpen && (
-        <div className="absolute top-8 right-0 bg-white border rounded shadow-md p-2 flex items-center z-50">
-          {/* Pass searchQuery and setSearchQuery as props to ProductSearch */}
-          <ProductSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          <button
-            onClick={() => setIsSearchOpen(false)}
-            className="ml-2 text-gray-500 hover:text-gray-700"
-          >
-            Close
-          </button>
-        </div>
-      )}
-    </div>
-
-
+        <div className="hidden md:flex items-center space-x-4">
+          <div className="relative">
+            <CiSearch
+              className="hover:text-gray-900 w-6 h-6 cursor-pointer "
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+            />
+            {isSearchOpen && (
+              <div className="flex absolute top-8 right-0 bg-white border rounded shadow-md p-2 z-50">
+                <ProductSearch />
+                <button
+                  onClick={() => setIsSearchOpen(false)}
+                  className=" text-gray-500 hover:text-gray-700"
+                >
+                  Close
+                </button>
+              </div>
+            )}
+          </div>
           <GoHeart className="hover:text-gray-900 w-6 h-6" />
           <Link href="/cart">
             <AiOutlineShoppingCart className="hover:text-gray-900 w-6 h-6" />
           </Link>
+
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -198,52 +138,56 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="bg-white text-black p-4">
-        <div className="mb-4">
-          {/* Close menu when search is performed */}
-          <div className="">
-          <ProductSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          {/* Search Bar for Mobile */}
+          <div className="mb-4">
+            {isSearchOpen ? (
+              <ProductSearch />
+            ) : (
+              <CiSearch
+                className="hover:text-gray-900 w-8 h-8 cursor-pointer"
+                onClick={() => setIsSearchOpen(true)}
+              />
+            )}
+          </div>
+          <Link
+            href="/"
+            className={`block py-2 ${isActive("/") ? "text-black font-bold" : "hover:text-gray-900"}`}
+            onClick={closeAll}
+          >
+            Home
+          </Link>
+          <Link
+            href="/shop"
+            className={`block py-2 ${isActive("/shop") ? "text-black font-bold" : "hover:text-gray-900"}`}
+            onClick={closeAll}
+          >
+            Shop
+          </Link>
+          <Link
+            href="/blog"
+            className={`block py-2 ${isActive("/blog") ? "text-black font-bold" : "hover:text-gray-900"}`}
+            onClick={closeAll}
+          >
+            Blog
+          </Link>
+          <Link
+            href="/contact"
+            className={`block py-2 ${isActive("/contact") ? "text-black font-bold" : "hover:text-gray-900"}`}
+            onClick={closeAll}
+          >
+            Contact
+          </Link>
+          <div className="flex items-center space-x-4 mt-4">
+            <MdPersonOutline className="hover:text-gray-900 w-6 h-6" />
+            <GoHeart className="hover:text-gray-900 w-6 h-6" />
+            <Link href="/cart">
+              <AiOutlineShoppingCart className="hover:text-gray-900 w-6 h-6" />
+            </Link>
           </div>
         </div>
-        <Link
-          href="/"
-          className={`block py-2 ${isActive("/") ? "text-black font-bold" : "hover:text-gray-900"}`}
-          onClick={() => setIsMobileMenuOpen(false)} // Close menu on selecting Home
-        >
-          Home
-        </Link>
-        <Link
-          href="/shop"
-          className={`block py-2 ${isActive("/shop") ? "text-black font-bold" : "hover:text-gray-900"}`}
-          onClick={() => setIsMobileMenuOpen(false)} // Close menu on selecting Shop
-        >
-          Shop
-        </Link>
-        <Link
-          href="/blog"
-          className={`block py-2 ${isActive("/blog") ? "text-black font-bold" : "hover:text-gray-900"}`}
-          onClick={() => setIsMobileMenuOpen(false)} // Close menu on selecting Blog
-        >
-          Blog
-        </Link>
-        <Link
-          href="/contact"
-          className={`block py-2 ${isActive("/contact") ? "text-black font-bold" : "hover:text-gray-900"}`}
-          onClick={() => setIsMobileMenuOpen(false)} // Close menu on selecting Contact
-        >
-          Contact
-        </Link>
-        <div className="flex items-center space-x-4 mt-4">
-          <MdPersonOutline className="hover:text-gray-900 w-6 h-6" />
-          <GoHeart className="hover:text-gray-900 w-6 h-6" />
-          <Link href="/cart">
-            <AiOutlineShoppingCart className="hover:text-gray-900 w-6 h-6" />
-          </Link>
-        </div>
-      </div>
       )}
     </nav>
   );
 };
 
 export default Header;
-

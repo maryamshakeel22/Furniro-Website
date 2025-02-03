@@ -161,7 +161,6 @@ import Image from "next/image";
 import { IoIosStarOutline } from "react-icons/io";
 import { client } from "@/sanity/lib/client"; // Sanity Client import
 import RealatedProduct from "@/app/shop/Relatedproduct";
-import Productdetail2ndsec from "@/app/productDetail/sectwo";
 import Link from "next/link";
 import { FaArrowRightLong } from "react-icons/fa6";
 
@@ -274,23 +273,23 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                   <div className="w-full flex md:flex-row flex-col md:py-12">
                       <div className="md:w-3/5 w-full md:flex gap-6">
             <div className="w-full md:hidden block p-6 bg-[#F9F1E7] mb-3 aspect-square overflow-hidden">
-              <Image src={product.images} alt={"sofa"} width={80} height={80} className="w-full h-min object-cover" />
+              <Image src={product.images} alt={"sofa"} width={80} height={80} loading='lazy' className="w-full h-min object-cover" />
             </div>
             <div className="flex md:flex-col flex-row md:gap-5 gap-3">
               <span className="w-32 md:h-28 bg-[#F9F1E7] p-4">
-              <Image src={product.images} alt={"sofa"} width={600} height={600} className="w-full h-full object-cover" />
+              <Image src={product.images} alt={"sofa"} width={600} height={600} loading='lazy' className="w-full h-full object-cover" />
               </span>
               <span className="w-32 md:h-28 bg-[#F9F1E7] p-4">
-              <Image src={product.images} alt={"sofa"} width={600} height={600} className="w-full h-full object-cover" />
+              <Image src={product.images} alt={"sofa"} width={600} height={600} loading='lazy' className="w-full h-full object-cover" />
               </span>
               <span className="w-32 md:h-28 bg-[#F9F1E7] p-4">
-              <Image src={product.images} alt={"sofa"} width={600} height={600} className="w-full h-full object-cover" />
+              <Image src={product.images} alt={"sofa"} width={600} height={600} loading='lazy' className="w-full h-full object-cover" />
               </span>
               <span className="w-32 md:h-28 bg-[#F9F1E7] p-4">
-                <Image src={product.images} alt={""} width={600} height={600} className="w-full h-full object-cover" />
+                <Image src={product.images} alt={""} width={600} height={600} loading='lazy' className="w-full h-full object-cover" />
               </span>
             </div><div className="md:w-[500px] md:block hidden p-6 bg-[#F9F1E7]">
-            <Image src={product.images} alt={"sofa"} width={600} height={600} className="w-full h-full object-cover" />
+            <Image src={product.images} alt={"sofa"} width={600} height={600} loading='lazy' className="w-full h-full object-cover" />
             </div>
             </div>
             <div className="md:w-2/5 w-full md:p-2 md:pt-0 pt-10">
@@ -368,6 +367,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             width={200}
             height={200}
             className="w-full rounded-2xl"
+            loading='lazy'
           />
         </div>
         <div className="flex flex-col bg-primary-light rounded-2xl justify-center items-center">
@@ -377,6 +377,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             width={200}
             height={200}
             className="w-full rounded-2xl"
+            loading='lazy'
           />
         </div>
       </div>

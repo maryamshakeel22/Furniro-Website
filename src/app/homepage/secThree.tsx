@@ -101,6 +101,7 @@ const SecThree = () => {
                   src={product.image}
                   width={285}
                   height={301}
+                  loading='lazy'
                 />
                 {product.discountTag && (
                   <span

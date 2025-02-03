@@ -8,7 +8,6 @@ import Image from "next/image";
 import { IoIosStarOutline } from "react-icons/io";
 import { client } from "@/sanity/lib/client"; // Sanity Client import
 import RealatedProduct from "../Relatedproduct";
-import Sectwo from "@/app/productDetail/sectwo";
 
 export default function ProductDetailPage({ params }: { params: { id: string } }) {
   const [product, setProduct] = useState<any>(null);
@@ -131,7 +130,6 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               </div>
             </div>
               </div>
-      <Sectwo />
       <RealatedProduct />
     </div>
   );

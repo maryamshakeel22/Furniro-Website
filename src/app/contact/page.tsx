@@ -11,7 +11,7 @@ const Contact = () => {
            <section className="bg-[url('/bgshop.png')] bg-cover bg-center py-12 md:py-16">
         <div className="container mx-auto px-4 text-center">
           <div className="inline-block w-16 h-16 mb-4" >
-          <Image src={'/logo.png'} alt='' width={77} height={77}/> </div>
+          <Image src={'/logo.png'} alt='' width={77} height={77} loading='lazy'/> </div>
           <h1 className="text-3xl md:text-4xl font-medium mb-4">Contact</h1>
           <div className="flex items-center justify-center gap-2 text-sm">
             <a href="#" className="hover:underline font-bold">

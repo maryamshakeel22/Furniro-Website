@@ -16,6 +16,7 @@ function BlogCenter() {
               height={400}
               alt="image1"
               className="w-full h-auto"
+              loading='lazy'
             />
           </div>
 

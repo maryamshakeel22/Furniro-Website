@@ -1,32 +1,21 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from "react";
-import { client } from "@/sanity/lib/client"; // Update the path to your client
-import { FiX } from "react-icons/fi"; // React Icon for close button
-import Image from "next/image"; // For optimized image rendering
-import { useRouter } from "next/navigation"; // For navigation
+import { client } from "@/sanity/lib/client";
+import { FiX } from "react-icons/fi";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Product {
   _id: string;
   title: string;
   imageUrl: string;
 }
-// Define the type for the props
-interface ProductSearchProps {
-  searchQuery?: string;
-  setSearchQuery?: React.Dispatch<React.SetStateAction<string>>;
-  onChange?: ()=> void
-  onClick?: ()=> void
-}
 
-
-const ProductSearch: React.FC<ProductSearchProps> = ({  onChange, onClick }) => {
-  const [query, setQuery] = useState<string>(""); // Search input state
-  const [results, setResults] = useState<Product[]>([]); // Filtered results
-  const [allProducts, setAllProducts] = useState<Product[]>([]); // All products
-  const searchRef = useRef<HTMLDivElement>(null); // For handling clicks outside
-  const router = useRouter(); // For navigation
-  const  handlesearch = () => {
-    onChange
-  }
+const ProductSearch: React.FC = () => {
+  const [query, setQuery] = useState<string>("");
+  const [results, setResults] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   // Fetch all products from Sanity
   useEffect(() => {
@@ -75,9 +64,11 @@ const ProductSearch: React.FC<ProductSearchProps> = ({  onChange, onClick }) => 
     };
   }, []);
 
-  // Navigate to the product's page
+  // Navigate to the product's page and close the search dropdown
   const handleProductClick = (productId: string) => {
-    router.push(`/pages/${productId}`); // Assuming your product pages are at /product/[id]
+    setQuery(""); // Clear the search bar
+    setResults([]); // Clear results
+    router.push(`/pages/${productId}`);
   };
 
   return (
@@ -89,7 +80,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({  onChange, onClick }) => 
           value={query}
           onChange={handleSearch}
           placeholder="Search for products..."
-          className="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+          className=" border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow"
         />
         {query && (
           <button
@@ -119,6 +110,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({  onChange, onClick }) => 
                 width={40}
                 height={40}
                 className="rounded-md mr-2"
+                loading="lazy"
               />
               <span className="text-sm font-medium">{product.title}</span>
             </div>

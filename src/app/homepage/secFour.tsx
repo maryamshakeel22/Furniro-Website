@@ -86,7 +86,7 @@ const SecFour = () => {
                         <Slider {...settings} ref={sliderRef}>
                             {cardCarousel.map((item) => (
                                 <div key={item.id} className={`${currentSlide === item.id ? 'w-[404px] h-[482px]' : 'w-[372px] h-[386px]'} relative px-3`}>
-                                    <Image src={item.img} alt="product-img"
+                                    <Image src={item.img} alt="product-img" loading='lazy'
                                     width={500} height={500} className="w-full h-full object-cover" />
                                     <div className={`absolute z-20 left-6 bottom-6 select-none flex items-end ${currentSlide === item.id ? 'opacity-100' : 'opacity-0'}`}>
                                         <div className='bg-white py-6 px-8 w-auto opacity-90'>

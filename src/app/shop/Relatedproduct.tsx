@@ -67,6 +67,7 @@ const RealatedProduct = () => {
                     src={product.imageUrl}
                     width={285}
                     height={301}
+                    loading='lazy'
                   />
                 </a>
                 {/* Hover Effects */}

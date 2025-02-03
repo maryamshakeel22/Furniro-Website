@@ -26,6 +26,7 @@ const SecTwo = () => {
             src={'/one.png'}
             width={381}
             height={480}
+            loading='lazy'
           />
         </div>
         <h2 className="text-sm text-center font-semibold title-font text-gray-900 mt-5">
@@ -42,6 +43,7 @@ const SecTwo = () => {
             src={'/two.png'}
             width={381}
             height={480}
+            loading='lazy'
           />
         </div>
         <h2 className="text-sm text-center font-semibold title-font text-gray-900 mt-5">
@@ -58,6 +60,7 @@ const SecTwo = () => {
             src={'/three.png'}
             width={381}
             height={480}
+            loading='lazy'
           />
         </div>
         <h2 className="text-sm text-center font-semibold title-font text-gray-900 mt-5">

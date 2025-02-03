@@ -65,6 +65,7 @@ const Product = () => {
           {/* Product Image */}
           <div className="relative h-[250px] w-full overflow-hidden">
             <Image
+            loading='lazy'
               src={product.imageUrl}
               alt={product.name}
               fill

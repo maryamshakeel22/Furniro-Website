@@ -22,6 +22,7 @@ const SecFive = () => {
       alt=''
       width={1700}
       height={721}
+      loading='lazy'
       />
       </div>
       </div>
