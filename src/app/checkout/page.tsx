@@ -67,58 +67,58 @@ export default function CheckoutForm() {
   //   alert('Order placed successfully!');
   // };
 
-  const handlePlaceOrder = async () => {
-    try {
-      // Alert for successful order placement
-      alert('Order placed successfully!');
-  
-      // Step 1: Save order in Sanity
-      const orderData = {
-        _type: 'order',
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        city: formData.city,
-        zip: formData.zip,
-        province: formData.province,
-        country: formData.country,
-        street: formData.street,
-        phone: formData.phone,
-        email: formData.email,
-        company: formData.company,
-        cart: cart.map((product) => ({
-          _type: 'reference',
-          _ref: product.id.toString(),
-        })),
-        total: totalPrice,
-        orderDate: new Date().toISOString(),
-      };
-  
-      await client.create(orderData);
-      localStorage.removeItem('appliedDiscount'); // Remove discount after order placed
-  
-      // Step 2: Proceed to Stripe Checkout
-      const stripe = await stripePromise;
-      if (!stripe) throw new Error('Stripe failed to load');
-  
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ cart }),
-      });
-  
-      const session = await response.json();
-      
-      if (!session.id) throw new Error('Stripe session creation failed');
-  
-      await stripe.redirectToCheckout({ sessionId: session.id });
-      
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Something went wrong! Please try again.');
-    }
-  };
+const handlePlaceOrder = async () => {
+  try {
+    // Alert for successful order placement
+    alert('Order placed successfully!');
+
+    // Step 1: Save order in Sanity
+    const orderData = {
+      _type: 'order',
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      city: formData.city,
+      zip: formData.zip,
+      province: formData.province,
+      country: formData.country,
+      street: formData.street,
+      phone: formData.phone,
+      email: formData.email,
+      company: formData.company,
+      cart: cart.map((product) => ({
+        _type: 'reference',
+        _ref: product.id.toString(),
+      })),
+      total: totalPrice,
+      orderDate: new Date().toISOString(),
+    };
+
+    await client.create(orderData);
+    localStorage.removeItem('appliedDiscount'); // Remove discount after order placed
+
+    // Step 2: Proceed to Stripe Checkout
+    const stripe = await stripePromise;
+    if (!stripe) throw new Error('Stripe failed to load');
+
+    const response = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cart }),
+    });
+
+    const session = await response.json();
+    
+    if (!session.id) throw new Error('Stripe session creation failed');
+
+    await stripe.redirectToCheckout({ sessionId: session.id });
+    
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Something went wrong! Please try again.');
+  }
+};
   return (
     <>
       <div className="min-h-screen bg-white px-4 md:px-8 lg:px-12">
