@@ -68,10 +68,38 @@ export default function CheckoutForm() {
   // };
 
   const handlePlaceOrder = async () => {
-    alert('Order placed successfully!');
-
+    try {
+      // Alert for successful order placement
+      alert('Order placed successfully!');
+  
+      // Step 1: Save order in Sanity
+      const orderData = {
+        _type: 'order',
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        city: formData.city,
+        zip: formData.zip,
+        province: formData.province,
+        country: formData.country,
+        street: formData.street,
+        phone: formData.phone,
+        email: formData.email,
+        company: formData.company,
+        cart: cart.map((product) => ({
+          _type: 'reference',
+          _ref: product.id.toString(),
+        })),
+        total: totalPrice,
+        orderDate: new Date().toISOString(),
+      };
+  
+      await client.create(orderData);
+      localStorage.removeItem('appliedDiscount'); // Remove discount after order placed
+  
+      // Step 2: Proceed to Stripe Checkout
       const stripe = await stripePromise;
-
+      if (!stripe) throw new Error('Stripe failed to load');
+  
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: {
@@ -79,40 +107,16 @@ export default function CheckoutForm() {
         },
         body: JSON.stringify({ cart }),
       });
-    
+  
       const session = await response.json();
-    
-      if (session.id) {
-        await stripe?.redirectToCheckout({ sessionId: session.id });
-      } else {
-        alert('Error processing payment. Please try again.');
-        }
+      
+      if (!session.id) throw new Error('Stripe session creation failed');
   
-    const orderData = {
-      _type: 'order',
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      city: formData.city,
-      zip: formData.zip,
-      province: formData.province,
-      country: formData.country,
-      street: formData.street,
-      phone: formData.phone,
-      email: formData.email,
-      company: formData.company,
-      cart: cart.map((product) => ({
-        _type: 'reference',  
-        _ref : product.id.toString(),   
-      })),
-      total: totalPrice,  // ✅ Corrected field name (total instead of totalPrice)
-      orderDate: new Date().toISOString(),  // ✅ Corrected function call
-    };
-  
-    try {
-      await client.create(orderData);
-      localStorage.removeItem('appliedDiscount');
+      await stripe.redirectToCheckout({ sessionId: session.id });
+      
     } catch (error) {
-      console.log('Error:', error);
+      console.error('Error:', error);
+      alert('Something went wrong! Please try again.');
     }
   };
   return (

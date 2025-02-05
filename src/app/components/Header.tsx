@@ -1,5 +1,5 @@
 'use client'
-{/* remove only comments part */}
+
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
@@ -9,6 +9,12 @@ import { CiSearch } from "react-icons/ci";
 import { GoHeart } from "react-icons/go";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import ProductSearch from "@/searchbar/page";
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -71,6 +77,12 @@ const Header = () => {
 
         {/* Desktop Icons */}
         <div className="hidden md:flex items-center space-x-4">
+        {/* <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn> */}
           <div className="relative">
             <CiSearch
               className="hover:text-gray-900 w-6 h-6 cursor-pointer "
@@ -92,6 +104,18 @@ const Header = () => {
           <Link href="/cart">
             <AiOutlineShoppingCart className="hover:text-gray-900 w-6 h-6" />
           </Link>
+          <SignedOut>
+        {/* React Icon per click karne par Sign In Button trigger hoga */}
+        <SignInButton>
+          <button>
+            <MdPersonOutline className="hover:text-gray-900 w-6 h-6 cursor-pointer" />
+          </button>
+        </SignInButton>
+      </SignedOut>
+
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
 
         </div>
 
@@ -178,9 +202,21 @@ const Header = () => {
             Contact
           </Link>
           <div className="flex items-center space-x-4 mt-4">
-            <MdPersonOutline className="hover:text-gray-900 w-6 h-6" />
+          <SignedOut>
+        {/* React Icon per click karne par Sign In Button trigger hoga */}
+        <SignInButton>
+          <button>
+            <MdPersonOutline className="hover:text-gray-900 w-6 h-6 cursor-pointer" />
+          </button>
+        </SignInButton>
+      </SignedOut>
+
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
+
             <GoHeart className="hover:text-gray-900 w-6 h-6" />
-            <Link href="/cart">
+            <Link href="/cart" onClick={closeAll}>
               <AiOutlineShoppingCart className="hover:text-gray-900 w-6 h-6" />
             </Link>
           </div>
